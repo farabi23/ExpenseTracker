@@ -4,6 +4,7 @@ import com.ExpenseTracker.ExpenseTracker.dto.ExpenseDTO;
 import com.ExpenseTracker.ExpenseTracker.entity.Expense;
 import com.ExpenseTracker.ExpenseTracker.repository.ExpenseRepository;
 import com.ExpenseTracker.ExpenseTracker.services.ExpenseService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +48,34 @@ public class ExpenseController {
         return ResponseEntity.ok(expenseService.getAllExpenses());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getExpenseById(@PathVariable Long id){
+        try{
+            return ResponseEntity.ok(expenseService.getExpenseById(id));
+
+        }
+        catch(EntityNotFoundException ex){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateExpense(@PathVariable Long id, @RequestBody ExpenseDTO dto) {
+        try {
+            return ResponseEntity.ok(expenseService.updateExpense(id, dto));
+        }
+
+        catch(EntityNotFoundException ex){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }
+
+        catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
+        }
+    }
 
 
 }
