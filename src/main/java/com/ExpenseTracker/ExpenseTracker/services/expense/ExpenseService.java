@@ -1,9 +1,7 @@
-package com.ExpenseTracker.ExpenseTracker.services;
+package com.ExpenseTracker.ExpenseTracker.services.expense;
 
 import com.ExpenseTracker.ExpenseTracker.dto.ExpenseDTO;
 import com.ExpenseTracker.ExpenseTracker.entity.Expense;
-import com.ExpenseTracker.ExpenseTracker.repository.ExpenseRepository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -17,5 +15,7 @@ public interface ExpenseService {
     Expense getExpenseById(Long id);
 
     Expense updateExpense(Long id, ExpenseDTO expenseDTO);
+
+    void deleteExpense(Long id);
 
 }

@@ -1,10 +1,9 @@
-package com.ExpenseTracker.ExpenseTracker.services;
+package com.ExpenseTracker.ExpenseTracker.services.expense;
 
 import com.ExpenseTracker.ExpenseTracker.dto.ExpenseDTO;
 import com.ExpenseTracker.ExpenseTracker.entity.Expense;
 import com.ExpenseTracker.ExpenseTracker.repository.ExpenseRepository;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -68,5 +67,14 @@ public class ExpenseServiceImpl implements ExpenseService {
         }
     }
 
+    public void deleteExpense(Long id) {
+        Optional<Expense> optionalExpense = expenseRepository.findById(id);
+        if(optionalExpense.isPresent()) {
+            expenseRepository.deleteById(id);
+        }
+        else{
+            throw new EntityNotFoundException("Expense is not present with id: "+id);
+        }
+    }
 
 }

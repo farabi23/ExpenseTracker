@@ -3,16 +3,11 @@ package com.ExpenseTracker.ExpenseTracker.controller;
 import com.ExpenseTracker.ExpenseTracker.dto.ExpenseDTO;
 import com.ExpenseTracker.ExpenseTracker.entity.Expense;
 import com.ExpenseTracker.ExpenseTracker.repository.ExpenseRepository;
-import com.ExpenseTracker.ExpenseTracker.services.ExpenseService;
+import com.ExpenseTracker.ExpenseTracker.services.expense.ExpenseService;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/expense")
@@ -66,6 +61,22 @@ public class ExpenseController {
     public ResponseEntity<?> updateExpense(@PathVariable Long id, @RequestBody ExpenseDTO dto) {
         try {
             return ResponseEntity.ok(expenseService.updateExpense(id, dto));
+        }
+
+        catch(EntityNotFoundException ex){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }
+
+        catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteExpense(@PathVariable Long id) {
+        try {
+           expenseService.deleteExpense(id);
+           return ResponseEntity.ok(null);
         }
 
         catch(EntityNotFoundException ex){
