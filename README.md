@@ -32,7 +32,7 @@ Ensure you have the following installed on your system:
 2. **Backend Setup**
    - Navigate to the `backend` folder:
      ```bash
-     cd backend
+     cd ..src/main
      ```
    - Configure your **MySQL database** settings in `src/main/resources/application.properties`:
      ```properties
@@ -48,7 +48,7 @@ Ensure you have the following installed on your system:
 3. **Frontend Setup**
    - Navigate to the `frontend` folder:
      ```bash
-     cd ../frontend
+     cd ../src/app
      ```
    - Install dependencies:
      ```bash
@@ -68,11 +68,11 @@ Ensure you have the following installed on your system:
 ```
 ExpenseTracker/
 ├── backend/
-│   ├── src/
+│   ├── src/main
 │   ├── pom.xml
 │   └── other backend files
 ├── frontend/
-│   ├── src/
+│   ├── src/app
 │   ├── angular.json
 │   └── other frontend files
 └── README.md
@@ -83,5 +83,3 @@ ExpenseTracker/
 ## Contribution
 Feel free to fork this repository and submit pull requests for new features, bug fixes, or improvements.
 
-## License
-This project is licensed under the [MIT License](LICENSE).
